@@ -16,10 +16,10 @@
 */
 
 // This is my Base Constructor Function
-function GameObject(newObject) {
+function GameObject(objectStats) {
   // console.log("This GameObject function works!");
-  this.createdAt = newObject.createdAt;
-  this.dimensions = newObject.dimensions;
+  this.createdAt = objectStats.createdAt;
+  this.dimensions = objectStats.dimensions;
 }
 
 // New prototype method for 'destroy()'
@@ -37,8 +37,30 @@ const mage = new GameObject({
   }
 });
 
-console.log(mage);
-// mage.destroy();
+const swordsman = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  }
+});
+
+const archer = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  }
+});
+
+console.log(mage.createdAt);
+console.log(mage.dimensions);
+console.log(swordsman.dimensions);
+console.log(archer.dimensions);
+archer.destroy();
+
 
 /*
   === CharacterStats ===
@@ -48,11 +70,16 @@ console.log(mage);
   * should inherit destroy() from GameObject's prototype
 */
 
-// function CharacterStats(stats) {
-//   GameObject.call(this, stats);
-//   this.healthPoints = stats.healthPoints;
-// }
+function CharacterStats(newObjectStats) {
+  // Binds the 'this' keyword to the GameObject constructor function instead of 'CharacterStats' function
+  GameObject.call(this, newObjectStats);
+  this.healthPoints = newObjectStats.healthPoints;
+  this.name = newObjectStats.name;
+}
 
+// const mageStats = new CharacterStats({
+//   healthpoints
+// });
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
