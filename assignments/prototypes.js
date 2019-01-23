@@ -15,28 +15,30 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-const mageDimensions = {
-  length: 2,
-  width: 1,
-  height: 1
-};
-
-function GameObject(createdAt, dimensions) {
+// This is my Base Constructor Function
+function GameObject(newObject) {
   // console.log("This GameObject function works!");
-  this.createdAt = createdAt;
-  this.dimensions = dimensions;
+  this.createdAt = newObject.createdAt;
+  this.dimensions = newObject.dimensions;
 }
-// GameObject();
 
 // New prototype method for 'destroy()'
 GameObject.prototype.destroy = function() {
   console.log("Object was removed from the game.");
-}
+};
 
-const mage = new GameObject(new Date(), mageDimensions);
+
+const mage = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  }
+});
 
 console.log(mage);
-mage.destroy();
+// mage.destroy();
 
 /*
   === CharacterStats ===
@@ -45,6 +47,12 @@ mage.destroy();
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+// function CharacterStats(stats) {
+//   GameObject.call(this, stats);
+//   this.healthPoints = stats.healthPoints;
+// }
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
