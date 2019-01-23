@@ -69,7 +69,7 @@ archerGameObject.destroy();
 */
 
 function CharacterStats(newObjectStats) {
-  // Binds the 'this' keyword to the GameObject constructor function instead of 'CharacterStats' function
+  // Binds the 'this' keyword to the 'GameObject' constructor function instead of 'CharacterStats' constructor function
   GameObject.call(this, newObjectStats);
   this.healthPoints = newObjectStats.healthPoints;
   this.name = newObjectStats.name;
@@ -129,6 +129,16 @@ archerCharacterStats.takeDamage();
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(remainingObjectStats) {
+  // Binds the 'this' keyword to the 'CharacterStats' constructor function instead of 'Humanoid' constructor function
+  CharacterStats.call(this, remainingObjectStats);
+  this.team = remainingObjectStats.team;
+  this.weapons = remainingObjectStats.weapons;
+  this.language = remainingObjectStats.language;
+}
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
