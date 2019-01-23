@@ -27,8 +27,7 @@ GameObject.prototype.destroy = function() {
   console.log("Object was removed from the game.");
 };
 
-
-const mage = new GameObject({
+const mageGameObject = new GameObject({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -37,7 +36,7 @@ const mage = new GameObject({
   }
 });
 
-const swordsman = new GameObject({
+const swordsmanGameObject = new GameObject({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -46,7 +45,7 @@ const swordsman = new GameObject({
   }
 });
 
-const archer = new GameObject({
+const archerGameObject = new GameObject({
   createdAt: new Date(),
   dimensions: {
     length: 1,
@@ -55,12 +54,11 @@ const archer = new GameObject({
   }
 });
 
-console.log(mage.createdAt);
-console.log(mage.dimensions);
-console.log(swordsman.dimensions);
-console.log(archer.dimensions);
-archer.destroy();
-
+console.log(mageGameObject.createdAt);
+console.log(mageGameObject.dimensions);
+console.log(swordsmanGameObject.dimensions);
+console.log(archerGameObject.dimensions);
+archerGameObject.destroy();
 
 /*
   === CharacterStats ===
@@ -77,9 +75,49 @@ function CharacterStats(newObjectStats) {
   this.name = newObjectStats.name;
 }
 
-// const mageStats = new CharacterStats({
-//   healthpoints
-// });
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
+};
+
+const mageCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  healthPoints: 5,
+  name: 'Bruce'
+}); 
+
+const swordsmanCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio'
+});
+
+const archerCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 10,
+  name: 'Lilith'
+});
+
+console.log(mageCharacterStats.name);
+console.log(swordsmanCharacterStats.name);
+console.log(archerCharacterStats.name);
+archerCharacterStats.takeDamage();
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
