@@ -24,7 +24,7 @@ function GameObject(objectStats) {
 
 // New prototype method for 'destroy()'
 GameObject.prototype.destroy = function() {
-  console.log("Object was removed from the game.");
+  return "Object was removed from the game.";
 };
 
 const mageGameObject = new GameObject({
@@ -58,7 +58,7 @@ console.log(mageGameObject.createdAt);
 console.log(mageGameObject.dimensions);
 console.log(swordsmanGameObject.dimensions);
 console.log(archerGameObject.dimensions);
-archerGameObject.destroy();
+console.log(archerGameObject.destroy());
 
 /*
   === CharacterStats ===
@@ -78,7 +78,7 @@ function CharacterStats(newObjectStats) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`);
+  return `${this.name} took damage.`;
 };
 
 const mageCharacterStats = new CharacterStats({
@@ -117,7 +117,7 @@ const archerCharacterStats = new CharacterStats({
 console.log(mageCharacterStats.name);
 console.log(swordsmanCharacterStats.name);
 console.log(archerCharacterStats.name);
-archerCharacterStats.takeDamage();
+console.log(archerCharacterStats.takeDamage());
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -138,6 +138,65 @@ function Humanoid(remainingObjectStats) {
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  healthPoints: 5,
+  name: 'Bruce',
+  team: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Tongue',
+}); 
+
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio',
+  team: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Tongue',
+});
+
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 10,
+  name: 'Lilith',
+  team: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+console.log(mage.language);
+console.log(swordsman.language);
+console.log(archer.language);
+console.log(swordsman.greet());
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -198,16 +257,16 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   //   language: 'Elvish',
   // });
 
-  // console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.healthPoints); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.team); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.createdAt); // Today's date
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.healthPoints); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.team); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
