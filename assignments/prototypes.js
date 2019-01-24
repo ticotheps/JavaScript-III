@@ -137,7 +137,7 @@ function Humanoid(remainingObjectStats) {
   this.language = remainingObjectStats.language;
 }
 
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
