@@ -15,6 +15,51 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+// This is my Base Constructor Function
+function GameObject(objectStats) {
+  // console.log("This GameObject function works!");
+  this.createdAt = objectStats.createdAt;
+  this.dimensions = objectStats.dimensions;
+}
+
+// New prototype method for 'destroy()'
+GameObject.prototype.destroy = function() {
+  return "Object was removed from the game.";
+};
+
+const mageGameObject = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  }
+});
+
+const swordsmanGameObject = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  }
+});
+
+const archerGameObject = new GameObject({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  }
+});
+
+console.log(mageGameObject.createdAt);
+console.log(mageGameObject.dimensions);
+console.log(swordsmanGameObject.dimensions);
+console.log(archerGameObject.dimensions);
+console.log(archerGameObject.destroy());
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -22,6 +67,57 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(newObjectStats) {
+  // Binds the 'this' keyword to the 'GameObject' constructor function instead of 'CharacterStats' constructor function
+  GameObject.call(this, newObjectStats);
+  this.healthPoints = newObjectStats.healthPoints;
+  this.name = newObjectStats.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
+
+const mageCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  healthPoints: 5,
+  name: 'Bruce'
+}); 
+
+const swordsmanCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio'
+});
+
+const archerCharacterStats = new CharacterStats({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 10,
+  name: 'Lilith'
+});
+
+console.log(mageCharacterStats.name);
+console.log(swordsmanCharacterStats.name);
+console.log(archerCharacterStats.name);
+console.log(archerCharacterStats.takeDamage());
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -33,64 +129,133 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(remainingObjectStats) {
+  // Binds the 'this' keyword to the 'CharacterStats' constructor function instead of 'Humanoid' constructor function
+  CharacterStats.call(this, remainingObjectStats);
+  this.team = remainingObjectStats.team;
+  this.weapons = remainingObjectStats.weapons;
+  this.language = remainingObjectStats.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  healthPoints: 5,
+  name: 'Bruce',
+  team: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Tongue',
+}); 
+
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio',
+  team: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Tongue',
+});
+
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 10,
+  name: 'Lilith',
+  team: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+console.log(mage.language);
+console.log(swordsman.language);
+console.log(archer.language);
+console.log(swordsman.greet());
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by un-commenting these 3 objects and the list of console logs below:
+// Test your work by un-commenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    healthPoints: 5,
-    name: 'Bruce',
-    team: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Tongue',
-  });
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    healthPoints: 15,
-    name: 'Sir Mustachio',
-    team: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Tongue',
-  });
+  // const mage = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 1,
+  //     height: 1,
+  //   },
+  //   healthPoints: 5,
+  //   name: 'Bruce',
+  //   team: 'Mage Guild',
+  //   weapons: [
+  //     'Staff of Shamalama',
+  //   ],
+  //   language: 'Common Tongue',
+  // });
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    healthPoints: 10,
-    name: 'Lilith',
-    team: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+  // const swordsman = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 2,
+  //     height: 2,
+  //   },
+  //   healthPoints: 15,
+  //   name: 'Sir Mustachio',
+  //   team: 'The Round Table',
+  //   weapons: [
+  //     'Giant Sword',
+  //     'Shield',
+  //   ],
+  //   language: 'Common Tongue',
+  // });
+
+  // const archer = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 1,
+  //     width: 2,
+  //     height: 4,
+  //   },
+  //   healthPoints: 10,
+  //   name: 'Lilith',
+  //   team: 'Forest Kingdom',
+  //   weapons: [
+  //     'Bow',
+  //     'Dagger',
+  //   ],
+  //   language: 'Elvish',
+  // });
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -102,7 +267,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
